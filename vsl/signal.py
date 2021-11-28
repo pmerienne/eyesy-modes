@@ -6,7 +6,7 @@ def elapsed_ms():
     return round(time.time() * 1000)
 
 
-def sawtooth(min=0.0, max=1.0, step=0.1):
+def sawtooth(min=0.0, max=1.0, step=0.001):
     assert max >= min
     interval = max - min
     total = elapsed_ms() * step
@@ -14,9 +14,9 @@ def sawtooth(min=0.0, max=1.0, step=0.1):
     return current
 
 
-def lfo(min=0.0, max=1.0, step=0.1):
+def lfo(min=0.0, max=1.0, step=0.001):
     assert max >= min
-    interval = 2 * (max - min)  # Forward + Backward
+    interval = 2.0 * (max - min)  # Forward + Backward
     total = elapsed_ms() * step
     current = math.fmod(total, interval)
 

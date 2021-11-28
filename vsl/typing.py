@@ -11,10 +11,3 @@ def color(_color):
         int(_color[2])
     )
     return _color
-
-
-def position(_position):
-    return (
-        int(_position[0]),
-        int(_position[1])
-    )

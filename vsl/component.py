@@ -35,16 +35,14 @@ def rotated_rect(
 
 
 def sun(
-        position=(0, 0),
-        radius=50,
+        position=(0.0, 0.0),
+        radius=0.25,
         color=0,
         nb_rays=20,
-        ray_radius=200,
+        ray_radius=0.25,
         ray_colors=[0.20, 0.45],
     ):
     color = typing.color(color)
-    position = typing.position(position)
-    radius = int(radius)
 
     # Draw rays
     angle_step = 2.0 * math.pi / nb_rays
@@ -59,12 +57,14 @@ def sun(
         )
 
     # Draw center
+    position = system.to_absolute(position)
+    radius = system.to_absolute(radius)
     pygame.draw.circle(system.screen, color, position, radius)
 
 
 def sun_ray(
-        center=(0, 0),
-        length=100,
+        center=(0.0, 0.0),
+        length=0.25,
         start_angle=0.0,
         end_angle=2*math.pi/6.0,
         fill=True,
@@ -83,11 +83,11 @@ def sun_ray(
     :return:
     """
     color = typing.color(color)
-    center = typing.position(center)
 
     a = center
     b = rotate((center[0], center[1] + length), center, start_angle)
     c = rotate((center[0], center[1] + length), center, end_angle)
 
     points = [a, b, c]
+    points = system.to_absolute_points(points)
     pygame.draw.polygon(system.screen, color, points, 0 if fill else thickness)

@@ -1,4 +1,3 @@
-from vsl import system
 from vsl.component import *
 from vsl.signal import *
 
@@ -9,13 +8,15 @@ def setup(screen, etc):
 
 def draw(screen, etc):
     # Draw background
-    etc.color_picker_bg(etc.knob5)
+    etc.color_picker_bg(1.0)
 
     # One sun
     sun(
-        position=(500, lfo(min=0, max=etc.yres)),
-        color=etc.color_picker(etc.knob4),
-        radius=int(etc.knob1 * 80)
+        position=(lfo(min=0.1, max=0.3, step=0.00005), 0.10),
+        color=(0, 0, 0),
+        radius=0.10,
+        ray_radius=0.80,
+        ray_colors=[0.15, 0.45],
     )
     time.sleep(0.02)
 
