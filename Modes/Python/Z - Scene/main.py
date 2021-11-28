@@ -1,3 +1,4 @@
+from vsl import system
 from vsl.component import *
 from vsl.signal import *
 
