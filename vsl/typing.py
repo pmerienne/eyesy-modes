@@ -1,11 +1,9 @@
-from vsl import get_etc
+from vsl import system
 
 
 def color(_color):
-    etc = get_etc()
-
     if isinstance(_color, float) or isinstance(_color, int):
-        _color = etc.color_picker(_color)
+        _color = system.etc.color_picker(_color)
 
     _color = (
         int(_color[0]),

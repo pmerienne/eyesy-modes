@@ -2,7 +2,7 @@ import math
 
 import pygame
 
-from vsl import typing, get_screen
+from vsl import typing, system
 from vsl.utils import rotate
 
 
@@ -31,7 +31,7 @@ def rotated_rect(
         rotate(c, center=a, angle=angle),
         rotate(d, center=a, angle=angle),
     ]
-    pygame.draw.polygon(get_screen(), color, points, 0 if fill else thickness)
+    pygame.draw.polygon(system.screen, color, points, 0 if fill else thickness)
 
 
 def sun(
@@ -59,7 +59,7 @@ def sun(
         )
 
     # Draw center
-    pygame.draw.circle(get_screen(), color, position, radius)
+    pygame.draw.circle(system.screen, color, position, radius)
 
 
 def sun_ray(
@@ -90,4 +90,4 @@ def sun_ray(
     c = rotate((center[0], center[1] + length), center, end_angle)
 
     points = [a, b, c]
-    pygame.draw.polygon(get_screen(), color, points, 0 if fill else thickness)
+    pygame.draw.polygon(system.screen, color, points, 0 if fill else thickness)

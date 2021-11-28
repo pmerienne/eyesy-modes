@@ -1,10 +1,10 @@
-from vsl import *
+from vsl import system
 from vsl.component import *
 from vsl.signal import *
 
 
 def setup(screen, etc):
-    clear_scene(screen, etc)
+    system.setup(screen, etc)
 
 
 def draw(screen, etc):

@@ -1,16 +1,12 @@
-_screen = None
-_etc = None
+class System:
+    def __init__(self):
+        self.screen = None
+        self.etc = None
+
+    def setup(self, screen, etc):
+        self.screen = screen
+        self.etc = etc
 
 
-def clear_scene(screen, etc):
-    global _screen, _etc
-    _screen = screen
-    _etc = etc
+system = System()
 
-
-def get_etc():
-    return _etc
-
-
-def get_screen():
-    return _screen
