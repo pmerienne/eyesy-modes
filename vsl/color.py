@@ -1,6 +1,9 @@
 import math
 import time
 
+from vsl import typing
+from vsl.utils import clip
+
 ALICEBLUE = (240, 248, 255)
 ANTIQUEWHITE = (250, 235, 215)
 AQUA = (0, 255, 255)
@@ -148,3 +151,16 @@ WHITE = (255, 255, 255)
 WHITESMOKE = (245, 245, 245)
 YELLOW = (255, 255, 0)
 YELLOWGREEN = (154, 205, 50)
+
+
+def color_mix(color_1=BLACK, color_2=WHITE, proportion=0.5):
+    proportion = clip(proportion, 0.0, 1.0)
+    color_1 = typing.color(color_1)
+    color_2 = typing.color(color_2)
+    proportion_1 = proportion
+    proportion_2 = 1 - proportion
+    return (
+        color_1[0] * proportion_1 + color_2[0] * proportion_2,
+        color_1[1] * proportion_1 + color_2[1] * proportion_2,
+        color_1[2] * proportion_1 + color_2[2] * proportion_2,
+    )

@@ -8,17 +8,17 @@ def setup(screen, etc):
 
 def draw(screen, etc):
     # Draw background
-    etc.color_picker_bg(etc.knob5)
+    etc.bg_color = BLACK
 
     # One sun
     grid(
         nb_columns=7,
         nb_rows=7,
         cell=lambda row, col: atom.circle(
-            lfo(min=0.2, max=0.8, step=0.0001),
+            lfo(min=0.4, max=0.6, step=0.0001) if row % 2 == 1 else 0.5,
             0.5,
             0.2,
-            (lfo(min=35, max=70, step=0.01, phase=row), lfo(min=30, max=125, step=0.01, phase=3*col), 178)
+            color_mix(PURPLE, BLUEVIOLET, lfo(step=0.0005, phase=0.1 * row + 0.1 * col))
         )
     )
     time.sleep(0.02)
