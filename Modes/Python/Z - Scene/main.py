@@ -1,7 +1,6 @@
-from vsl import system
 from vsl.component import *
+from vsl.layout import *
 from vsl.signal import *
-from vsl.color import *
 
 
 def setup(screen, etc):
