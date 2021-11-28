@@ -6,7 +6,8 @@ from vsl.color import *
 
 
 def sun(
-        position=(0.0, 0.0),
+        x=0.0,
+        y=0.0,
         radius=0.25,
         color=0,
         nb_rays=20,
@@ -19,7 +20,8 @@ def sun(
     for i in range(nb_rays):
         ray_color = ray_colors[i % len(ray_colors)]
         sun_ray(
-            center=position,
+            x=x,
+            y=y,
             length=ray_radius,
             start_angle=i * angle_step,
             end_angle=(i + 1) * angle_step,
@@ -27,11 +29,12 @@ def sun(
         )
 
     # Draw center
-    atom.circle(position, radius, color)
+    atom.circle(x, y, radius, color)
 
 
 def sun_ray(
-        center=(0.0, 0.0),
+        x=0.0,
+        y=0.0,
         length=0.25,
         start_angle=0.0,
         end_angle=2*math.pi/6.0,
@@ -46,9 +49,10 @@ def sun_ray(
     :param end_angle:
     :return:
     """
+    center = (x, y)
     a = center
-    b = rotate((center[0], center[1] + length), center, start_angle)
-    c = rotate((center[0], center[1] + length), center, end_angle)
+    b = rotate((x, y + length), center, start_angle)
+    c = rotate((x, y + length), center, end_angle)
 
     points = [a, b, c]
     atom.polygon(points, color)

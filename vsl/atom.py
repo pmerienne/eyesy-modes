@@ -5,20 +5,21 @@ from vsl import system, typing
 from vsl.utils import to_absolute, to_absolute_points
 
 
-def rectangle(relative_position, relative_width, relative_height, color):
+def rectangle(relative_x, relative_y, relative_width, relative_height, color):
     color = typing.color(color)
-    position = to_absolute(relative_position)
+    position = to_absolute((relative_x, relative_y))
     size = (to_absolute(relative_width), to_absolute(relative_height))
     rect = (position, size)
     return pygame.draw.rect(system.screen, color, rect)
 
 
 def circle(
-        relative_position,
+        relative_x,
+        relative_y,
         relative_radius,
         color
     ):
-    position = to_absolute(relative_position)
+    position = to_absolute((relative_x, relative_y))
     radius = to_absolute(relative_radius)
     color = typing.color(color)
     pygame.draw.circle(system.screen, color, position, radius)
