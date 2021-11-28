@@ -1,6 +1,6 @@
 import math
 
-from vsl import system
+from vsl import sys
 
 
 def rotate(point, center, angle):
@@ -22,7 +22,7 @@ def to_absolute_points(points):
 
 
 def to_absolute(relative_value):
-    width, height = system.screen.get_size()
+    width, height = sys.screen.get_size()
 
     if isinstance(relative_value, float):
         return int(relative_value * width)

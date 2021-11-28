@@ -1,9 +1,8 @@
-from vsl.layout import *
-from vsl.signal import *
+from vsl import *
 
 
 def setup(screen, etc):
-    system.setup(screen, etc)
+    sys.setup(screen, etc)
 
 
 def draw(screen, etc):
