@@ -2,6 +2,7 @@ import math
 
 from vsl.utils import rotate
 from vsl import atom
+from vsl.color import *
 
 
 def sun(
@@ -10,7 +11,7 @@ def sun(
         color=0,
         nb_rays=20,
         ray_radius=0.25,
-        ray_colors=[0.20, 0.45],
+        ray_colors=(GOLD, MAROON),
     ):
 
     # Draw rays

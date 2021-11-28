@@ -1,6 +1,7 @@
 from vsl import system
 from vsl.component import *
 from vsl.signal import *
+from vsl.color import *
 
 
 def setup(screen, etc):
@@ -17,7 +18,7 @@ def draw(screen, etc):
         color=(0, 0, 0),
         radius=0.10,
         ray_radius=0.80,
-        ray_colors=[0.15, 0.45],
+        ray_colors=[WHITE, RED],
     )
     time.sleep(0.02)
 
