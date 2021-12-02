@@ -7,9 +7,9 @@ from vsl.color import *
 
 
 def grid(
+        cell_function,
         nb_columns=2,
-        nb_rows=2,
-        cell=lambda row, col: atom.rectangle((0.1, 0.1), 0.9, 0.9, WHITE)
+        nb_rows=2
     ):
     full_width, full_height = sys.screen.get_size()
     cell_width = int(full_width / nb_columns)
@@ -22,16 +22,16 @@ def grid(
             position = (x, y)
             rect = (position, (cell_width, cell_height))
             with screen_context(rect):
-                cell(row, col)
+                cell_function(row, col)
 
 
 def scene(
+        content_function,
         relative_x=0.0,
         relative_y=0.0,
         relative_width=0.5,
         relative_height=0.5,
-        bg_color=None,
-        content_function=lambda: atom.rectangle(0.0, 0.0, 1.0, 1.0, WHITE)):
+        bg_color=None):
     position = to_absolute((relative_x, relative_y))
     size = to_absolute((relative_width, relative_height))
     rect = (position, size)

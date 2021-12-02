@@ -1,15 +1,15 @@
 import pygame
 
-from vsl import atom, sys
+from vsl import sys
 from vsl.utils import blit_rotate
 from vsl.color import *
 from vsl.layout import screen_context, surface_context
 
 
 def symmetry(
+        content_function,
         horizontal=True,
-        vertical=True,
-        content_function=lambda: atom.circle(0.5, 0.9, 0.7, RED)):
+        vertical=True):
     full_width, full_height = sys.screen.get_size()
 
     # Draw first screen
