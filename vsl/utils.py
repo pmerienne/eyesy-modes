@@ -1,5 +1,7 @@
 import math
 
+import pygame
+
 from vsl import sys
 
 
@@ -15,6 +17,28 @@ def rotate(point, center, angle):
     new_x = math.cos(angle) * (px-cx) - math.sin(angle) * (py-cy) + cx
     new_y = math.sin(angle) * (px-cx) + math.cos(angle) * (py-cy) + cy
     return new_x, new_y
+
+
+def blit_rotate(target, surface, target_position, surface_pivot, angle):
+    """
+    Rotate and blit a surface into another.
+    Copy/Paste from https://stackoverflow.com/questions/59909942/how-can-you-rotate-an-image-around-an-off-center-pivot-in-pygame/59909946#59909946
+    :param target: target Surface
+    :param surface: Surface which has to be rotated and blit
+    :param target_position: position of the pivot on the target Surface surf (relative to the top left of main_surface)
+    :param surface_pivot: is position of the pivot on the Surface to rotate (relative to the top left of surface)
+    :param angle: angle in degree
+    :return:
+    """
+    image_rect = surface.get_rect(topleft=(target_position[0] - surface_pivot[0], target_position[1] - surface_pivot[1]))
+    offset_center_to_pivot = pygame.math.Vector2(target_position) - image_rect.center
+    rotated_offset = offset_center_to_pivot.rotate(-angle)
+    rotated_image_center = (target_position[0] - rotated_offset.x, target_position[1] - rotated_offset.y)
+    rotated_image = pygame.transform.rotate(surface, angle)
+    rotated_image_rect = rotated_image.get_rect(center=rotated_image_center)
+    target.blit(rotated_image, rotated_image_rect)
+
+
 
 
 def to_absolute_points(points):

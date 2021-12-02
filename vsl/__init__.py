@@ -7,3 +7,4 @@ from vsl.color import *
 from vsl.component import *
 from vsl.layout import *
 from vsl.signal import *
+from vsl.effect import *

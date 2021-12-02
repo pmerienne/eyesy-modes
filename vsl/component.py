@@ -1,8 +1,16 @@
-import math
-
 from vsl.utils import rotate
 from vsl import atom
 from vsl.color import *
+
+
+def h_lines(
+        nb_lines=5,
+        colors=[ORANGE, BLUE, GREEN]
+    ):
+    y_step = 1.0 / float(nb_lines)
+    for i in range(nb_lines):
+        color = colors[i % len(colors)]
+        atom.rectangle(0.0, i * y_step, 1.0, y_step, color)
 
 
 def sun(
