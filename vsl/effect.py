@@ -68,21 +68,27 @@ def kaleidoscope(content_function):
     pygame.draw.polygon(mask, WHITE, triangle)
     content_surface.blit(mask, (0, 0), None, pygame.BLEND_RGBA_MULT)
 
-    # We'll now blit this triangle 12 times
+    # We'll now blit this triangle 3 times to create a quadrant (Top right)
     # Rotating every triangle more and more
     # 1 triangle on 2 will be flipped horizontally
-    target_pivot_position = full_size[0] / 2, full_size[1] / 2
+    quadrant_surface = pygame.Surface(quadrant_size, pygame.SRCALPHA)
+    quadrant_pivot_position = 0, quadrant_size[1]
     angle_step = 360.0 / 12.0
-    for i in range(12):
-        triangle_content = content_surface.copy()
-
+    flipped_content_surface = pygame.transform.flip(content_surface, 1, 0)
+    for i in range(3):
         if i % 2 == 0:
             surface_pivot_position = 0, content_height
             angle = math.floor(-float(i) * angle_step)
+            triangle_content = content_surface
         else:
-            # Flip horizontally one on two
             surface_pivot_position = content_width, content_height
             angle = math.floor(-float(i + 1) * angle_step)
-            triangle_content = pygame.transform.flip(triangle_content, 1, 0)
+            triangle_content = flipped_content_surface
 
-        blit_rotate(sys.screen, triangle_content, target_pivot_position, surface_pivot_position, angle)
+        blit_rotate(quadrant_surface, triangle_content, quadrant_pivot_position, surface_pivot_position, angle)
+
+    # Finally blit quadrants (using symmetric properties)
+    sys.screen.blit(quadrant_surface, (full_size[0] / 2, 0))  # Top Right
+    sys.screen.blit(pygame.transform.flip(quadrant_surface, 1, 0), (0, 0))  # Top Left
+    sys.screen.blit(pygame.transform.flip(quadrant_surface, 0, 1), (full_size[0] / 2, full_size[1] / 2))  # Bottom Right
+    sys.screen.blit(pygame.transform.flip(quadrant_surface, 1, 1), (0, full_size[1] / 2))  # Bottom Left

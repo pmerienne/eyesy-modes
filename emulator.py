@@ -32,13 +32,14 @@ KNOBS_MAPPINGS = {
 
 
 class ETCEmulator:
-    def __init__(self, mode_name, min_fps=50, wav_filename=None):
+    def __init__(self, mode_name, min_fps=50, wav_filename=None, log_fps=True):
         self.etc = FakeEtc()
         self.main_module = imp.load_source('main', 'Modes/Python/%s/main.py' % mode_name)
 
-        # Set FPS clock
+        # Set clocks
         self.min_fps = min_fps
         self.fps_clock = pygame.time.Clock()
+        self.log_fps = log_fps
 
         # Init sound system (like original ETC)
         sound.init(self.etc)
@@ -70,7 +71,9 @@ class ETCEmulator:
             # Cap fps
             self.fps_clock.tick(self.min_fps)
             current_fps = self.fps_clock.get_fps()
-            logger.info('FPS: %s' % current_fps)
+
+            if self.log_fps:
+                logger.info('FPS: %s' % current_fps)
 
         # Stop Sound
         self.sound_patcher.stop()
@@ -177,7 +180,8 @@ class PyGameWindow:
         self.etc = etc
         pygame.init()
         window = (etc.xres, etc.yres)
-        self.screen = pygame.display.set_mode(window)
+        flags = pygame.DOUBLEBUF
+        self.screen = pygame.display.set_mode(window, flags)
         pygame.display.flip()
 
     def check_events(self):
