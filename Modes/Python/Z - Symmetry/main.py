@@ -21,6 +21,3 @@ def draw(screen, etc):
         horizontal=True,
         vertical=False,
     )
-
-    time.sleep(0.02)
-

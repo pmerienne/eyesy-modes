@@ -20,5 +20,4 @@ def draw(screen, etc):
         nb_columns=7,
         nb_rows=7,
     )
-    time.sleep(0.02)
 

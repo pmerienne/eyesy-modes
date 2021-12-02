@@ -5,11 +5,15 @@ import math
 import random
 import threading
 import wave
+import logging
 
 import alsaaudio
 import pygame
 
 import sound
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 POSITIVE_STEP = +0.05
 NEGATIVE_STEP = -0.05
@@ -28,9 +32,13 @@ KNOBS_MAPPINGS = {
 
 
 class ETCEmulator:
-    def __init__(self, mode_name, wav_filename=None):
+    def __init__(self, mode_name, min_fps=50, wav_filename=None):
         self.etc = FakeEtc()
         self.main_module = imp.load_source('main', 'Modes/Python/%s/main.py' % mode_name)
+
+        # Set FPS clock
+        self.min_fps = min_fps
+        self.fps_clock = pygame.time.Clock()
 
         # Init sound system (like original ETC)
         sound.init(self.etc)
@@ -58,6 +66,11 @@ class ETCEmulator:
             self.window.screen.fill(self.etc.bg_color)
             self.main_module.draw(self.window.screen, self.etc)
             pygame.display.update()
+
+            # Cap fps
+            self.fps_clock.tick(self.min_fps)
+            current_fps = self.fps_clock.get_fps()
+            logger.info('FPS: %s' % current_fps)
 
         # Stop Sound
         self.sound_patcher.stop()
@@ -191,7 +204,7 @@ class PyGameWindow:
         self.print_knobs()
 
     def print_knobs(self):
-        print('knob1: %.2f, knob2: %.2f, knob3: %.2f, knob4: %.2f, knob5: %.2f' % (
+        logger.info('knob1: %.2f, knob2: %.2f, knob3: %.2f, knob4: %.2f, knob5: %.2f' % (
             self.etc.knob1,
             self.etc.knob2,
             self.etc.knob3,
@@ -296,5 +309,5 @@ if __name__ == '__main__':
     parser.add_argument('-w', '--wav', type=str, required=False, default=None, help='Name of the mode (default: None)')
     args = parser.parse_args()
 
-    emulator = ETCEmulator(args.mode, args.wav)
+    emulator = ETCEmulator(args.mode, wav_filename=args.wav)
     emulator.start()

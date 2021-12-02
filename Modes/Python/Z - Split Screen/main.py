@@ -54,6 +54,3 @@ def draw(screen, etc):
         relative_height=0.76,
         bg_color=BLACK,
     )
-
-    time.sleep(0.02)
-

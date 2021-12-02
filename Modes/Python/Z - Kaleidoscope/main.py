@@ -19,6 +19,3 @@ def draw(screen, etc):
             ray_colors=[WHITE, RED],
         )
     )
-
-    time.sleep(0.02)
-
